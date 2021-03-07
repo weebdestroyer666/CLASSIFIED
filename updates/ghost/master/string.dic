@@ -1,0 +1,296 @@
+﻿///////// 빒?긕?긚긣긡깛긵깒?긣
+///////// 빒럻쀱깏??긚렖룕
+///////// written by umeici.
+
+
+//---------------------------Strings--------------------------
+
+//As you can see above, this file was written by umeici, but unfortunately the rest of the text up there got a bit garbled at some point. I'll leave it though.
+
+//Anyway, string.dic has to do with the right-click SSP menu, specifically the captions for the menu options. This is VERY IMPORTANT if you're going to set up the Network Update for your ghost! Otherwise this is just an easy place to customize your ghost's menu to your tastes. 
+
+//If you're going to set up Network Update, make sure to read the walkthrough (http://www.ashido.com/ukagaka/) for more details! I won't get into the whole thing here, but this page has a very important value you will need to change for Network Update to work!
+//Note also here that lines do not end with \e here. This is because the ghost isn't speaking these lines, they're just being used in the right-click menu.
+
+
+//---- Username -----------------------------------------------------------------------
+//Don't touch this.
+
+On_username
+{
+	username
+}
+
+//---- Network Update URL ----------------------------------------------
+//This is the URL where your ghost will look for updates. If you're setting up Network Updates YOU MUST change this to point at the right directory! Otherwise your ghost will not update properly! If you're not going to use the Network Update feature, just leave this section as it is or delete it, it should be fine.
+
+On_homeurl
+{
+	"http://www.somekindofwebhost.com/yourghostsdirectory/"
+}
+
+
+//---- Top Menu Option Caption -----------------------------------------
+//You may have noticed that there are two collapsed links at the top of the SSP right click menu that lead you to another assortment of links. This is the caption for the top option of the menu.
+
+On_recommendrootbutton.caption
+ {
+	"reference sites"
+}
+
+
+//---- Top Menu Option Websites -----------------------------------------------------
+//These are the websites listed under that button we just named up there. You can put whatever sites you want in here. I'll actually link to some real sites here to be helpful. Feel free to replace these with the sites you like instead. Pay close attention to the formatting that follows!
+
+On_sakura.recommendsites
+ {
+	
+	"dev twitter"
+	--
+	"%ASC(1)https://twitter.com/weebdestroyer66/%ASC(2)"
+	--
+	
+	"dev tumblr"
+	--
+	"%ASC(1)http://weebdestroyer666.tumblr.com/%ASC(2)"
+	--
+	
+	"dev toyhouse"
+	--
+	"%ASC(1)https://toyhou.se/weebdestroyer666%ASC(2)"
+	--
+	
+	"SSP"
+	--
+	"%ASC(1)http://ssp.shillest.net/%ASC(2)"
+	--
+	
+	"ghost town"
+	--
+	"%ASC(1)http://ghosttown.mikage.jp/"
+	--
+	
+	"ghost documentation (j)"
+	--
+	"%ASC(1)http://usada.sakura.vg/contents/specification.html%ASC(2)"
+	--
+	
+	"make your own ghost"
+	--
+	"%ASC(1)https://ashido.com/ukagaka/%ASC(2)"
+	
+	--
+	
+	"ukadoc project wiki (j)"
+	--
+	"%ASC(1)http://ssp.shillest.net/ukadoc/manual/index.html/%ASC(2)"
+	//You don't have to space these out like this between sites, but I thought it'd make it a bit easier to read.
+ }
+ 
+//---- The second option from the top's caption -----------------------------------------
+//This is the name of the second option in that list. You can change this to whatever you want, or even put in multiple names. If you do more than one, the names will switch randomly.
+
+On_portalrootbutton.caption
+ {
+	"starfish's things"
+ }
+
+ //---- Websites in the Second Option --------------------------------------------------
+ //These are the websites listed under that second button we just named up there. Like with the other option, these are the websites you want to link to. You can put whatever sites you want in here. Pay close attention to the formatting that follows!
+ 
+On_sakura.portalsites
+ {
+ 	"do you want to know more about me?"
+	--
+	"%ASC(1)https://toyhou.se/3162666.starfish%ASC(2)"
+	--
+	"my favorite food!"
+	--
+	"%ASC(1)https://diabetesmealplans.com/wp-content/uploads/2016/07/oatmeal.jpg%ASC(2)"
+	--
+	"my idol!"
+	--
+	"%ASC(1)https://en.wikipedia.org/wiki/John_Coltrane%ASC(2)"
+	--
+	"i love you!"
+	--
+	"%ASC(1)https://toyhou.se/9777724.zh-ng-ch-o---%ASC(2)"
+
+	
+	//You get the idea. You can add more links or take them away as you like following this basic formula.
+ }
+
+ 
+//---- Top Menu Option in the Second Character -----------------------------------------
+//If you right-click the secondary character, a tiny menu will pop up. This is the caption for the top option.
+
+On_kero.recommendbuttoncaption
+ {
+	"jerry's stuff"
+ }
+
+ //---- Top Menu Websites for the Second Character --------------------------------------
+ //As with the above, this is another chance for you to add some links to some websites you like.
+ 
+On_kero.recommendsites
+ {
+	"an old favorite"
+	--
+	"%ASC(1)https://www.youtube.com/watch?v=iYss-d9PFdQ%ASC(2)"
+	--
+	"all about ME!"
+	--
+	"%ASC(1)https://toyhou.se/3163370.jerry%ASC(2)"
+		--
+	"get a load of this old man..."
+	--
+	"%ASC(1)https://toyhou.se/9774665.elijah-roslin-orb-n%ASC(2)"
+ }
+
+ //---- Update Menu Caption ------------------------------------------------------------
+ //What it will say on the menu for the option to Update.
+ 
+On_updatebutton.caption
+ {
+	"update"
+}
+
+//---- Dress-up Menu Caption ----------------------------------------------------------
+//What it will say on the menu for Dress-Up.
+
+On_dressuprootbutton.caption
+{
+	"fashion"
+}
+
+//---- Headlines and RSS Feeds ---------------------------------------------------------
+//You'll see this below uninstall. This is where all the headlines/RSS feeds the user may have subscribed to will be listed, and this is the caption it'll have on the menu.
+
+On_headlinesenserootbutton.caption
+{
+	"headlines + rss feeds"
+}
+
+ //---- Readme Caption -------------------------------------------------------
+ //What the menu displays for the readme file link under Information.
+ 
+On_readmebutton.caption
+ {
+	"read me"
+ }
+
+ //---- Uninstall Caption -----------------------------------------------------
+ //This is the caption for the option to uninstall them.
+ 
+On_vanishbutton.caption
+ {
+	"uninstall"
+}
+
+//---- Shell Caption -----------------------------------------------------
+ //This is the caption for the option to change shells.
+ 
+on_shellrootbutton.caption
+ {
+	"change shell"
+}
+
+//---- change ghost caption -----------------------------------------------------
+ //this is the caption for the option to change ghosts.
+ 
+on_ghostrootbutton.caption
+ {
+	"change ghost"
+}
+
+//---- call ghosts caption -----------------------------------------------------
+ //this is the caption for the option to call another ghost. what this does essentially is load up another ghost on your desktop. for example, you could run your ghost, then call flele, and have them both running at the same time.
+ 
+on_callghostrootbutton.caption
+ {
+	"call ghost"
+}
+
+//---- quit caption -----------------------------------------------------
+ //this is the caption for the option to quit.
+ 
+on_quitbutton.caption
+ {
+	"quit"
+}
+
+
+//----------------------------------Stop!------------------------------------
+
+//Don't mess with anything after this point! It's all stuff you don't need to worry about. Just save and move on to the next .dic file.
+
+
+
+
+
+ //---- 소멸 지시 버튼 표시 교체 -------------------------------------------------------
+On_vanishbutton.visible
+ {
+ 	if deleteshitai == "ON"
+ 	{
+	"1"
+	}
+	else
+	{
+	"0"
+	}
+}
+
+//---- 딳벍뭷궻뫜궻긕?긚긣뼹롦벦 -------------------------------------------------------
+On_otherghostname
+{
+	ghostexlist = ""
+	_i = 0
+	while _i >= 0 {
+		_ghostname = NAMETOVALUE("reference%_i")
+		if _ghostname != "" {
+			if _i > 0; ghostexlist += ","
+			ghostexlist += _ghostname[0]
+			_i++
+		}
+		else; _i = -1
+	}
+	ghostexcount = ARRAYSIZE(ghostexlist)
+}
+
+//---- SHIORI 듫쁀륃뺪 ------------------------------------------------------------------
+On_version
+{
+	GETSETTING(AYAINFO_VERSION)
+}
+
+On_craftman
+{
+	"umeici"
+}
+
+On_craftmanw
+{
+	"?럖"
+}
+
+On_name
+{
+	"AYA"
+}
+
+//---- Owned SSTP 뾭 uniqueid 롦벦 ------------------------------------------------------
+On_uniqueid
+{
+	uniqueid = reference0
+}
+
+//---- hwnd 롦벦 ------------------------------------------------------------------------
+On_hwnd
+{
+	sakurahwnd    = reference0[0]
+	kerohwnd      = reference0[1]
+	sakurablnhwnd = reference1[0]
+	keroblnhwnd   = reference1[1]
+}
+

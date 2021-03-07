@@ -1,0 +1,454 @@
+﻿//---------------------------AI Talk--------------------------
+//Alright, this is it! The bread and butter of your ghost. This is where all their random conversations are stored. Of all the .dic files, this is the one you will probably be adding stuff to and updating the most as new dialogue comes to your mind. It is relatively simple in that there aren't many functions or real coding involved with this file, but there are a few cool tricks you can do within randomtalk that can make dialogue with interesting effects, so I'll point them out as we go along.
+//I'm going to leave a lot of examples of different types of dialogue in here that you can study if the possibilities they present intrigue you. Study them carefully!
+
+//Make sure to read the walkthrough (http://www.ashido.com/ukagaka/) for more details about how to properly format ghost dialogue!
+//I will reiterate that you should be editing these in Notepad++, and in particular, you should set the Language to C (or Java I guess) to properly highlight all the text. It will make things A LOT EASIER for you, trust me! It will also help you keep track of your brackets in case you forget some. If you click on a line with a bracket in Notepad++, it should highlight where the other bracket ends, or turn purple if there's no finishing bracket (which you should definitely fix!)
+//It will also highlight my commented lines in green, so you'll know where they are. Any line beginning with // is a commented line that the code will not read. It's just for your reference!
+
+//--AiTalk
+//Leave this alone.
+//Advanced users, this is mostly setting up whether or not dialogue is in a chain before it displays. Again, you can leave it alone unless you want to screw around with chains for some strange reason.
+
+AiTalk
+ {
+	if RAND(100) < communicateratio
+ 	{
+ 		StartCommunicate
+	}
+ 	else
+	{
+ 		if mikireflag == 0
+		{
+			if CHAIN.IDName == "" {
+ 				lastTalk = RandomTalk
+			}
+			else {
+				lastTalk = ChainTalk
+			}
+			lastTalk
+		}
+ 		else
+		{ 
+		MikireTalk
+ 		}
+	}
+ }
+
+
+//--RandomTalk 
+ //Alright, here we go! This is where ALL your ghost's random dialogue will go! These are the conversations that they'll have with you or each other that pop up depending on the talk rate defined in menu.dic (or if you ignored that, set in bootend.dic in the first boot, which would be every five minutes).
+ 
+//*********************Advanced User Info*******************************
+//These text boxes are meant for those who have an interest in expanding or using more complicated functions in their ghost. Also for my own reference in the future since I plan on using this template too, haha. If you have no interest in any of this and just want to keep things as simple as possible, feel free to skip these boxes.
+
+//You CAN link to other pools of dialogue in RandomTalk using envelopes/functions, such as %(teatalk) to pull from a pool of dialogue about tea. Then you'd just add that line in among the other dialogue in here with %(teatalk). However, this vastly lowers the probability of dialogue in that function being called. If teatalk only gets called 1/5 times, and it has 10 pieces of dialogue in there, then you're only getting... uh... god, I'm bad at fractions... 1...50th? a chance that a certain teatalk line will appear. LOOK THE GIST IS THAT THE PROBABILITY GETS LOW. This applies to any kind of dialogue in a conditional. A simpler example would be if you have one piece of normal dialogue, and one piece that's an if check that has four pieces of dialogue in there. You'd end up with a 50% chance to get that normal dialogue, and a 50% chance for ONE of the other four pieces of dialogue... which makes the odds of seeing any specific line in that special dialogue that much lower.
+
+//You can't do things like put OnSystemBoot or something in RandomTalk. You could use \![raise] to pull something though, although I'd be careful about it. More on these kind of things and conditionals in general in the coding page on the walkthrough.
+
+//If you split up RandomTalk with if/else checks, then you can redirect in an If to another function, like... if chargermode == "on" { ChargerChatting } else {normal random talk dialogue}. This would redirect the random dialogue to ChargerChatting instead. You can't just throw a function into RandomTalk directly though, like "dialogue 1" "dialogue 2" OnFunctionname "dialogue 3", that kind of thing. You'll have to split it off into its own if or point to it with an envelope.
+
+//You can do multiple ifs in RandomTalk if required... like an if for if a character is asleep, or if a third character is present, or if they're having a nervous breakdown, or if they're sulking. It depends! You can add a bunch of checks leading to specialized pools if you want. Just make sure you leave some normal dialogue in the last else for RandomTalk (unless you want to redirect that somewhere else with an envelope too... although that seems a bit redundant, honestly.)
+//***********************************************************************
+
+RandomTalk : nonoverlap
+{
+	"\1\s[14]starfish! hit that yoinky! sploinky! please! \w6\0\s[0]AWWWWW YEEEEEAAAAAAH\w2\s[0]\w2\s[6]\w2\s[0]\w2\s[6]\w2\s[0]\w2\s[6]\w2\s[0]\w2\s[6]\w8\w8\w8\w8\s[0]\e"
+	"\1\s[10]the \_a[https://toyhou.se/9774665.elijah-roslin-orb-n]professor's\_a really cool. \1\s[14] he lets me do whatever i want! \1\s[13]...most of the time.\1\s[10]\w5\n\n[half] he's crazy about western astrology and this guy named jesus, plus he taught me spanish.\w5 he can be a little high-strung, \1\s[14] so it's fun to mess with him sometimes. \s[12]\w8\n\n[half] you know, it's a privilege to see him smile. kind of because he looks goofy when he does it but mostly because it's just nice to see him happy for once.\e"
+
+	"\0\s[2]%(username), have you heard of \_a[https://toyhou.se/9777724.zh-ng-ch-o---]dr. zhōng?\_a she created me! \w8\0\s[4]\n\n[half]i used to not talk to her much, because she didn't always show up to work, \0\s[0]but i always looked up to her. she had a really hard life and got herself to where she is now all on her own. she's doing a lot better now than she has in the past few years... \s[2]i'm really happy for her.\e"
+
+	//Alright, here is where all your dialogue will go. I hope you studied how to format dialogue carefully in the walkthrough, as there is little here I can help you with. You're going to have to write most of it yourself. So instead, I'll give you a set of examples to look at.
+	
+	"\0\s[4]i hope i don't have any field missions coming up. they're kind of scary. a robot ate my liver\e"
+	
+	"\1\s[11]snork... mimimimimi...\e"
+	
+	//Single lines of dialogue like this are simple and easy to do.
+	
+	"\0\s[0]jerry's really smart and funny!\w8\1\s[10]ssssssssssssssssssssss\0\s[3]\n\n[half]?\1\s[10]\n\n[half]sorry. my deadly neurotoxins\e"
+	
+	"\0\s[0]i've been listening to \_a[https://www.youtube.com/watch?v=UNtOUHxXzPs]this\_a a lot lately. isn't it scenic? ramsey lewis was in a league of his own...\e"
+	
+	"\0\s[0]jerry, what are you thinking about?\w8\1\s[10]installing a virus \1\s[14]lol\e"
+	
+	"\0\s[4]both my arms fell off and exploded and nobody cared\e"
+	
+	"\0\s[2]you can probably guess who got me interested in learning cantonese...\e"
+	
+	"\0\s[0]did you know? 我蕩失咗路 means 'i'm lost'.\s[4] i learned this because i am always lost\e"
+	
+	"\0\s[0]have you listened to \_a[https://www.youtube.com/watch?v=Hrr3dp7zRQY]ryo fukui's first album, scenery?\_a he didn't start playing piano until he was an adult, which kind of makes me feel better about my own progress...\s[2] remember that it's never too late to develop a skill!\e"
+	
+	"\1\s[14]hope nobody minds me peeking in %(usersfolder) ...\w8\0\s[0]don't worry, %(username), it can't be any more embarassing than whatever's on jerry's computer.\e"
+	
+	"\0\s[4]i'm kind of sad. i'm going to do this so i'm less sad \s[5]\_v[sfx\saxsolo1.wav]\w8\e"
+	
+	"\0\s[2]here's a little something i've been working on... \s[5]\_v[sfx\saxsolo2.wav]\w8\e"
+	
+	"\1\s[10]\0\s[0]hmm...\0\s[5]and a 1-2-3!!\_v[sfx\experimental1.wav]\w8\w8\w8\w8\1\s[13]\w8\w8\w8\w8\w8\w8\w8\w8\w8\0\s[3]\n\n[half]S-SORRY!! \0\s[4] inspiration struck at the wrong time... \1\s[13]it sure was avant-garde...\w5\0\s[2]\n\n[half]oh! thank you!!\e"	
+
+	
+	
+	
+	
+	//--If statements
+	//You can put if statements in RandomTalk! They don't even need Else statements, unless you want to keep two sets of statements completely separate - for example, you have one pool of conversations for when there are two characters, and one for if there are three characters. You wouldn't want these to overlap, so you'd put one pool in the if statement and the other in the else. Most of the time though, you won't need an Else statement for these, since they'll mostly only be adding in dialogue if the if statement is true. 
+	
+	if nowshell == "master" //This checks to see what shell they're currently using. You may remember this value being defined back in bootend.dic. If they're in their default shell...
+	{
+	//Then these conversations are available! Note the brackets enclosing this set of dialogue.
+	
+	"\0\s[0]i like my uniform. it's nice and simple.\1\s[13]i'd be hard-pressed to call them uniforms now...\w4\s[10] they used to be uniforms though. \w8\n\nwe used to all wear these hospital gown things and all had the same haircut, but the supervisors had trouble telling us apart, so we got some new outfits with a few regulations.\w4\e"
+	}
+	
+	//You can also put in multiple ifs checking for the same thing to vary the responses. In this case, it's checking to see if they're wearing another shell. You don't need to use elseifs for this! Just an if is fine.
+	if nowshell == "Hypothetical Shell that doesn't actually exist"
+	{
+	"\1\s[10]i think you kinda fucked up %(username)\e"
+	}
+	//After the if statement is done, you can continue with dialogue as normal. As you can see, you can move the ifs around in here, it doesn't really matter. You may want to stick them all in one place together if you want to keep track of them, or you can scatter them around your dialogue as you please. It's up to you. These two lines below are just normal random dialogue.
+	
+	"\0\s[0]我地識講兩種語言.\w8\1\s[10]ser bilingüe puede ser útil por aquí\e"
+	
+	"\0\s[0]%(username), have you ever seen a european hamster? \s[1]they're so sweet...\s[2]\w8\n\n[half]they live in the wild! so it's not your typical idea of a hamster. and they're just as cute as domestic ones!\n\n\_b[euroham.png,inline]\0\s[2]\w8\w8\n\ni think if i were an animal, i'd be a european hamster.\1\s[13]... no other ideas?\e"
+	
+	"\1\s[10]i think one of my biggest artistic inspirations is \_a[https://www.comicartfans.com/gallerypiece.asp?piece=500589]takami akai\_a...\w4\s[13] the old guy needs a \_a[https://www.animenewsnetwork.com/news/2007-04-27/co-founder-takami-akai-steps-down-from-gainax]thicker skin\_a, though.\e"
+	
+	"\0\s[3]jerry there's this girl staring at me from the other side of the lab right now im really scared she's been doing this for 15 minutes and i haven't seen her blink\w8\1\s[13]bro that's a mirror\e"
+	
+	//And here we're going to go back into ifs! You see, you can space out your ifs with normal dialogue if you want, as I just mentioned. Anyway, you can set up if statements to check for a lot of different things! One of the cooler ones I think are ones set to check for time. This one for example checks if the month is December.
+	
+	if month == 12
+	{
+	if day == 20 {
+		"\1\s[0]oh, it's mima's birthday! i should play a song for her, but i forgot to practice..!\w8\1\s[18]i'm sure she'll like it no matter what. you're real talented\e"
+		}
+		
+		"\0\s[0]jerry, what's christmas?\w8\1\s[12]it's how people in the west celebrate fried chicken day. the professor says it's someone's birthday.\e"
+	}
+	
+	//So you can use these to check for any number of situations. I think this feature is really neat, so I'm going to set up some quick default responses for the months, days, and time of day. If you don't want to do these, you can just delete this whole set of ifs down to the //--Double Envelopes section below.
+	//You can also nest ifs within these, so you could check if it was the 25 of April in the morning for example. You can also add or take away dialogue from these as you like, so if you want to have five dialogue options for April or one for January, you can totally do that.
+	
+	if month == 1
+	{
+		"\0\s[0]wow, i can't believe it's been a whole year already...\w8\1\s[10]i'm glad i'm still your friend.\e"
+
+	}
+	if month == 2
+	{
+		"\0\s[0]have you ever been in love, jerry?\w8\1\s[11]depends on if you're talking about real people or not\e"
+
+	}
+	if month == 3
+	{
+		"\0\s[2]it's women's history month!\w8\1\s[10]that's enough feminism for today\e"
+		if day == 30{ 	
+		"\1\s[12]happy march 30th!\w8\0\s[2]thanks! what's the occasion?\w8\1\s[0]\n\n[half]On this day in 1981, Ronald Reagan was shot.\e" }
+	}
+	if month == 4
+	{
+		"\0\s[0]april showers bring nice smells :)\e"
+		if day == 1 {
+		"\0\s[0]ehehehe... i had toast for breakfast today...\w8\1\s[13]did you?\w8\0\s[3]\n\n[half]NO!!!!!!!!! I FOOLED YOU!!!!!!! ehehehehehe\e" }
+	}
+	if month == 5
+	{
+	if day == 2
+		{
+		"\1\s[12]it's the professor's birthday. he's had a lot of those...\n\n[half] so many candles...\e"
+		}
+	}
+	if month == 6
+	{
+		"\0\s[2]it's summer, which means they might open the beach soon! the beach is closed every other season to clean the ocean. i'm glad everyone's hard work is paying off.\w8\1\s[13]they clean the ocean?\e"
+		
+		"\0\s[0]it's getting a little hot...\w8\1\s[10]sorry about that.\e"
+	}
+	if month == 7
+	{
+		"\0\s[0]why are you so sad, jerry?\w8\1\s[11]no school uniforms...\e"
+		if day == 26 {
+		"\0\s[2]al combate, corred, bayameses, que la Patria os contempla orgullosa;\w8\1\s[12]no temáis una muerte gloriosa, ¡que morir por la Patria es vivir!\e" }
+	}
+	if month == 8
+	{
+		"\0\s[0]school starts in the pop city school district about now.\w8\1\s[10]i wanna go...\e"
+		
+		"\0\s[0]it's still hot...\w8\1\s[10]nothing i can do about that.\e"
+	}
+	if month == 9
+	{
+	if day == 21 {
+		"\0\s[4]\_a[https://www.youtube.com/watch?v=Gs069dndIYk]do you remember?\_a\w8\1\s[13]... nah\e"
+		}
+	
+	}
+	if month == 10
+	{
+		"\0\s[0]what are you gonna be for halloween, jerry?\w8\1\s[10]sexy naughty bitchy me\e"
+		
+		"\0\s[0]oooOOooOOOooooo...\w8\1\s[10]i wonder who that is...\e"
+			if day == 25 {
+		"\0\s[2]it's dr. zhōng's birthday today! \n\n[half]i'm going to make her dinner. i'm grateful she's such a good cook.\e" }
+	}
+	if month == 11
+	{
+		"\0\s[0]jerry, thanksgiving is an american holiday, right? what are americans thankful for?\w8\1\s[10]the professor says they should be thankful god keeps them around\e"
+	}
+	//These ifs check what day of the week it is.
+	if weekday == 1
+	{
+		"\1\s[11]starfish guess what day of the week i hate you'll never guess\e"
+
+	}
+	if weekday == 2
+	{
+		"\1\s[14]hope the professor doesn't miss his healing crystals. eheheheheheh\e"
+		
+	}
+	if weekday == 3
+	{
+		"\1\s[14]it's will of god wednesday\e"
+		"\1\s[14]it's wacky penis wednesday\e"
+	}
+	if weekday == 4
+	{
+		"\0\s[0]you're out of touch\w8\1\s[14]i'm out of time\0\s[2]\1\s[12]\n\n[half]\_sbut i'm out of my head when you're not around\_s\e"
+	}
+	if weekday == 5
+	{
+		"\0\s[0]\_a[https://www.youtube.com/watch?v=DfEnIFV2-mc]it's one of those days...\_a\e"
+		
+	}
+	if weekday == 6
+	{
+		"\1\s[14]silly saturday...\e"
+	}
+	if weekday == 7
+	{
+		"\1\s[10]can you come to church with me, starfish? pretty please? i bet they'll let you play the organ.\w8\0\s[1]i guess, but i feel so disrespectful going there. i don't know what's going on at all... but... the organ...!\e"
+		
+	}
+	//These ifs check for the time of day as defined in bootend.dic. Do you remember the words used for each chunk of time in GetTimeSlot? These are the same words!
+	if timeslot == "earlymorning"
+	{
+		"\1\s[11]five more minutes...\e"
+	}
+	if timeslot == "morning"
+	{
+		"\0\s[2]i love to wake up every day at 8:30 AM and brush my teeth and wash my face and eat plain oatmeal!!!\w8\1\s[13]you really live life on the edge don't you\e"
+		
+		"\0\s[0]breakfast is the most important meal of the day!\w8\1\s[10]who told you that? your mom? \w8\0\s[1]\n\n[half]haha! my mom doesnt talk to me\e"
+	}
+	if timeslot == "lunch"
+	{
+		"\0\s[0]i hope you're not missing work, %(username)...\e"
+	}
+	if timeslot == "afternoon"
+	{
+		"\0\s[2]i like listening to \_a[https://www.youtube.com/watch?v=DfEnIFV2-mc]this at this time of day...\_a\e"
+		
+	}
+	if timeslot == "evening"
+	{
+	"\0\s[0]do you have any homework to do, %(username)?\w8\1\s[10]don't listen to her\e"
+	}
+	if timeslot == "latenight"
+	{
+		"\1\s[12]good morning, starfish!\w8\0\s[3]good morning...?\e"
+	}
+	if timeslot == "midnight"
+	{
+		"\1\s[12]wow! this is the perfect time to play mmos for 5 hours\e"
+		
+		"\1\s[14]maybe i should eavesdrop on the professor...\e"
+	}
+	
+
+	
+	
+	//Now we're going to go back to normal dialogue for a bit of a break. Feel free to rewrite this all as you like.
+
+	"\1\s[10]got any music recs, starfish?\w8\0\s[2]o-oh! nobody's ever asked me that before! i think you'd like \_a[https://www.youtube.com/watch?v=qaDZJdQV60g]this one.\_a\e"
+	"\0\s[0]if you're interested in latin rock, i highly recommend \_a[https://www.youtube.com/watch?v=R0rFptjV3d0]carlocco\_a. chile produced some fantastic music in the 70s.\e"
+	"\0\s[0]something about \_a[https://www.youtube.com/watch?v=T4nAGtdkU88]this song\_a touches me. pharoah sanders has such a distinctive sound. you'll find that the rest of the album is just as inspired!\e"
+	"\1\s[10]%(username), are you looking forward to the nagatoro adaptation? starfish promised to see it with me.\w8\0\s[0]my prediction is that nagatoro will listen when the protagonist tells her to stop bullying him. i think it would be a nice message!\e"
+	"\1\s[12]\0\s[0]jerry, what's making you smile? \w8\1\s[12]just being with you, that's all.\w8\0\s[1]\n\n[half]tthats sso beautifuil!!!!!!\e"
+	"\0\s[2] jerry, tell me about that purple-haired girl you draw all the time... is she from a show you like?\1\s[10]\w4oh, venus?\w4\n\n\_b[venus.png,inline]\w8 \s[12]\n\nnah, i came up with her myself! \1\s[13]\n\n[half]\w4i don't really know her backstory or anything but i can like, come up with something right now.\0\n\n[half]\w5ooh! i'm excited!\1\n\n[half]\w4 okay, here goes...\1\s[10]\n\n[half]\w4so i think shes like a space cowgirl outlaw or whatever i think shes in space because like venus get it also her father was smited by god (like from the bible)\0\s[3]\1\s[10] himself and shes trying to avenge him.\n\n[half] she wears bunny ears in his memory because her father raised her on a bunny farm on the moon and she wants to make sure it is the last thing her final adversary sees before he perishes\0\n\n\w8\w8\w2 wow... what's the story behind the leotard..?\1\n\n\s[13]i dunno to distract people? i don't have all the answers\w4\e"
+	"\1\s[10]michigan ahAHAHAHAHAHAHAHAHAHAHAHHAHAJHAHAHAHAHS\e"
+	"\1\s[13]ever heard of flesh tooth, %(username)?\w8\n\n[half] it's a little less gross than it sounds. here's an example.\n\n\_b[fleshtooth.png,inline]\1\s[10]\w8\w8\n\n the lack of distinction between lip and fang used to be a way for mangaka to save ink. now it's a sort of popular stylistic choice. \1\s[12]\w6personally, i think it's kind of cute.\w4\1\s[13] except when they try to apply some weird kind of 'realism' by hiding the actual tooth behind the flesh part or something.\e"}
+	
+	
+
+
+
+
+//-OnMinuteChange
+//These are time-related bits of dialogue for your ghost to say. If you're uninterested, you can delete it all except for a line for MikireTalk. So it'd look something like
+
+//OnMinuteChange
+//{
+//HourCheck
+//--
+//if mikireflag == 1
+// 	{
+// 		MikireTalk
+//	}
+//}
+
+//But I think these are kind of neat, so I'd leave them myself.
+
+
+//Keeps track of if an hour has passed. Just ignore this.
+HourCheck
+{
+if passmin >= 60
+	{
+		passmin = 0
+		passhour = passhour + 1
+	}
+}
+
+
+OnMinuteChange //This is what will trigger time-based dialogue for your Ghost.
+ {
+	HourCheck //checks to see if an hour has passed, ignore it
+	--
+ 	if minute == 0 //These ifs will check what time it is. Here, it's seeing if the minute equals zero...
+	{
+ 		if hour == 12 //And the hour equals 12, meaning it's noon. You can change this to some other hour if you want.
+		{
+ 			"\0\s[0]noon already?\w8\1\s[11]aw, man. i haven't even done anything all day.\w8\0\n\n[half]\s[0]... you're sad about it?\e"
+			//Replace with appropriate dialogue as you want.
+		}
+ 		elseif hour == 0 //If the hour is zero, aka midnight. Again, you can change this to whatever hour you want to check for. This section is flexible! You can also add more elseifs if you want to check for other hours.
+		{
+		"\0\s[3]it's tomorrow!\w8\1\s[14]YEEEEEEAAAAAAAAH\e"
+			//Then replace the dialogue with what's appropriate.
+		}
+		else
+		{
+			"\0\s[0]it's %(hour12)'o clock.\e"
+			//%(hour12) stores the time. This is a general top of the hour notification. I personally like this because it helps me keep track of time when I've been working on something, so when a ghost is all "Hey it's 3 o clock" I can be like woah really when did that happen. If you think this is annoying though, you can just delete this bit of dialogue to leave this else statement blank, or leave "" in here instead.
+		}
+	}
+	//You can also check for more specific times! For example...
+	elseif hour == 23 && minute == 55 //this checks to see if the hour is 23 and the minutes are at 55... essentially, 11:55 pm.
+	{
+		"\1\s[14]5 minutes to GAMING!!!\e"
+		//Replace with what you like!
+	}
+	elseif hour == 1 && minute == 29 //Here, it's checking for a specific time on a specific day. You can add things to your time checks just like this by using the AND operator, && (more about operators at the walkthrough page). This adds up to 7:30 am, Sunday. If you have a favorite TV program on at some time, you could have your ghost comment on when it comes on like this.
+	{			
+		"\1\s[14]eheheheh. hey %(username) check the clock\e"
+		//Replace with what's appropriate.
+	}
+	//If you're not interested in these more specific checks, you can delete those last two elseifs and just leave the one for minute==0, or clear them all out as mentioned above, although leave in the HourCheck and mikireflag bits.
+	
+	//Don't touch this part.
+	elseif mikireflag == 1
+ 	{
+ 		MikireTalk
+	}
+ }
+
+//--OnSecondChange
+//Like the above, this handles what happens every time a second goes by. Most of this you will not have to touch.
+
+OnSecondChange
+ {
+	if passsec == 59
+ 		{
+	 	passsec = 1
+ 		passmin = passmin + 1
+		}
+ 	else
+ 		{
+	 	passsec = passsec + 1
+		}
+	if mikireflag == 0 && reference1 == 1 //Dialogue for putting them off the screen. You could make this a unique line if you wanted (Like "Hey! What are you doing?"), and have MikireTalk below be for if they continue to be offscreen ("Why are you leaving me out here? Help!" for example). I'll add an example bit of dialogue and comment it out, you can uncomment it and use it if you like, or just leave it out and use MikireTalk below.
+	{
+		"\0\s[0]bye bye!!!!!!!!!!!!!!!!!!!!"
+		
+		MikireTalk
+	}
+	if mikireflag == 1 && reference1 == 0 //Dialogue for coming back on the screen
+	{
+		EndMikireTalk
+	}
+	mikireflag = reference1 //reference1 is if the ghost is offscreen or not
+	if reference2 == 1
+	{
+ 		//This dialogue is for when the two characters are overlapping each other. If you don't want your characters to care, you can just leave this blank.
+		
+  		"\0\s[0]ah, we're so close...\w8\1\s[13]well now you're just making it weird\4\e"
+		
+		//You can see here the use of two envelopes, screenwidth and screenheight, to tell the user their resolution. Oddly, they are not in parentheses. I'm not sure why this is, but they don't display right otherwise. An odd quirk with these two envelopes.
+		//Note also how Triangle moves away at the end of the dialogue. This is due to the \4 tag. That will make any one character move away from the other if they are able. I talked about this tag and its counterpart tag \5 in the SakuraScript page on the walkthrough.
+	}
+ }
+
+ //---- MikireTalk ---------------------------------------------------------------------
+ //MikireTalk is dialogue for when your main character is off-screen. Like if you dragged Girl over to the side of your monitor until she was partially concealed by it.
+ 
+MikireTalk
+ {
+	"\0\s[0]hi!!! is anyone there!!\w8\1\s[13]%(username), could you push ctrl-shift-F12?"
+	//Note the hotkey combo Triangle mentions. He's tellin1 the truth, that should bring her back on the screen.
+ }
+
+ //----EndMikireTalk--------------------------------------------------------------------
+ //For after you bring the character back on screen.
+ 
+EndMikireTalk
+ {
+	"\0\s[2]hi!!!!!!!!!!!!!!\w8\1\s[12]hehe. hi starfish\e"
+ }
+
+
+//**** OnSurfaceRestore *****************************************************************
+//OnSurfaceRestore is a handy function. What this does is that after a short period of time, the ghost will go back to its default pose, so you won't have a ghost stuck in one expression for too long. It's also helpful if you've made one of the characters disappear using \s[-1] in dialogue and didn't bring them back at the end of it. This will do that for you.
+//I'm going to comment out the if/else statements in this because the circumstances in which they'd come up seem pretty unlikely and unnecessary if you're just going to be making a simple ghost. You can just leave this function alone and move on if you want. However, if you do want to use them, just uncomment the lines by deleting the slashes and fill in the info as you need.
+
+//*********************Advanced User Info*******************************
+//You can put if statements in OnSurfaceRestore to make exceptions for certain poses, or to make sure that once they're in a certain pose, they stay in that pose. For example, if you turn my Hunter and Smoker ghost into eggplants, there's a check for the their eggplant pose numbers to make sure they STAY eggplants when OnSurfaceRestore is called.
+//You can also use OnSurfaceRestore to clean up things that might be left on the screen, primarily from using p[number]\s[] to call up other objects or characters. Just make sure to add a p[number]\s[-1] to OnSurfaceRestore, and that should get rid of it each time the ghost cleans itself up.
+//***********************************************************************
+
+OnSurfaceRestore
+ {
+ 	//if reference0 == 4 || reference0 == 6 //This is checking what poses they are in. This looks to see if Girl is in pose 4 or pose 6, since she is reference0.
+ 	//{
+ 	//"\1\s[10]aw, are you good?\w8\0\s[0]all good...!\e"
+ 	//}
+ 	//elseif reference1 == 14 || reference1 == 16 //This is doing the same but for Triangle, since he's reference1. It looks to see if he's in pose 14 or post 16.
+ 	//{
+ 	//"\0\s[0]is something wrong?\w8\1\s[10]nah, i'm fine. thanks though./e"
+ 	//}
+ 	//else
+ 	//{
+	"\0\s[0]\1\s[10]\e"
+	//}
+ }
+
+ 
+ //--OnKeyPress
+ //This defines the hotkeys your ghost will use. You can change these to whatever you want, but I don't really know why you would. I'd just leave this alone. Advanced Users can add new hotkeys attached to whatever function if you want.
+ 
+OnKeyPress
+{
+	if reference0 == "t"
+	{
+	OnAiTalk
+	}
+	elseif reference0 == "r"
+	{
+	OnLastTalk
+	}
+	elseif reference0 == "f1"
+	{
+	"\![open,readme]"
+	}
+}
